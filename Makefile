@@ -13,3 +13,30 @@ set_price:
 
 get_price:
 	curl 0.0.0.0:5000/get_price
+
+.PHONY: build_and_push
+build_and_push: build_redis push_redis build_flask_for_redis push_flask_for_redis
+
+.PHONY: build_redis
+build_redis:
+	docker build --tag=barteks/redis -f redis/Dockerfile .
+
+.PHONY: build_flask_for_redis
+build_flask_for_redis:
+	docker build --tag=barteks/flask_app_for_redis -f app/Dockerfile .
+
+.PHONY: push_redis
+push_redis:
+	docker push barteks/redis
+
+.PHONY: push_flask_for_redis
+push_flask_for_redis:
+	docker push barteks/flask_app_for_redis
+
+.PHONY: run_redis
+run_redis:
+	docker run --detach --publish=6379:6379 --name=redis barteks/redis
+
+.PHONY: run_flask_for_redis
+run_flask_for_redis:
+	docker run --detach --publish=5000:5000 --name=flask_app barteks/flask_app_for_redis

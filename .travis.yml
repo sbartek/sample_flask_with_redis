@@ -1,0 +1,12 @@
+language: python
+python:
+  - 3.6.8
+services:
+  - docker
+before_install:
+  - make build_redis
+  - make build_flask_for_redis
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+script:
+  - make push_redis
+  - make push_flask_for_redis

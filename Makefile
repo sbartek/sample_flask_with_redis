@@ -31,7 +31,7 @@ push_redis:
 
 .PHONY: push_flask_for_redis
 push_flask_for_redis:
-	docker push barteks/barteks/flaskappforredis
+	docker push barteks/flaskappforredis
 
 .PHONY: run_redis
 run_redis:
@@ -39,4 +39,4 @@ run_redis:
 
 .PHONY: run_flask_for_redis
 run_flask_for_redis:
-	docker run --detach --publish=5000:5000 --name=flask_app barteks/barteks/flaskappforredis
+	docker run --detach --publish=5000:5000 --name=flask_app barteks/flaskappforredis

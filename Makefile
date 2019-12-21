@@ -23,7 +23,7 @@ build_redis:
 
 .PHONY: build_flask_for_redis
 build_flask_for_redis:
-	docker build --tag=barteks/flask_app_for_redis -f app/Dockerfile .
+	docker build --tag=barteks/flaskappforredis -f app/Dockerfile .
 
 .PHONY: push_redis
 push_redis:
@@ -39,4 +39,4 @@ run_redis:
 
 .PHONY: run_flask_for_redis
 run_flask_for_redis:
-	docker run --detach --publish=5000:5000 --name=flask_app barteks/flask_app_for_redis
+	docker run --detach --publish=5000:5000 --name=flask_app barteks/flaskappforredis

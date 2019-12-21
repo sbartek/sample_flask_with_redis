@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flaskapp-deployment
+spec:
+  selector:
+    matchLabels:
+      app: flaskapp
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: flaskapp
+    spec:
+      containers:
+      - name: flaskapp
+        image: barteks/flaskappforredis:latest
+        ports:
+        - containerPort: 5000

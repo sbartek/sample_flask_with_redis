@@ -1,19 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flaskapp-deployment
+  name: redis
 spec:
   selector:
     matchLabels:
-      app: flaskapp
+      app: redis
   replicas: 1
   template:
     metadata:
       labels:
-        app: flaskapp
+        app: redis
     spec:
       containers:
-      - name: flaskapp
-        image: barteks/flaskappforredis:latest
+      - name: redis
+        image: barteks/redis:latest
         ports:
-        - containerPort: 5000
+        - containerPort: 6379
+      restartPolicy: Always

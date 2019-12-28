@@ -4,4 +4,4 @@ RUN apk add --no-cache --update make
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 COPY . /app
-CMD ["make", "app"]
+CMD ["make", "redis_app"]

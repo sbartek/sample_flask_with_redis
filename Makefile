@@ -1,18 +1,21 @@
-.PHONY: app get_home set_price get_price
+.PHONY: get_home set_price get_price
 
-app:
-	gunicorn flask_app:app --bind 0.0.0.0:5000 -w 4\
-		--access-logfile logs/gunicorn-access.log\
-		--error-logfile logs/gunicorn-error.log
+.PHONY: localhost_app
+localhost_app:
+	export REDIS_HOSTNAME=localhost; sh sbin/run_app.sh
+
+.PHONY: redis_app
+redis_app:
+	export REDIS_HOSTNAME=redis; sh sbin/run_app.sh
 
 get_home:
-	curl 0.0.0.0:5000
+	curl 0.0.0.0
 
 set_price:
-	curl 0.0.0.0:5000/set_price/159
+	curl 0.0.0.0/set_price/159
 
 get_price:
-	curl 0.0.0.0:5000/get_price
+	curl 0.0.0.0/get_price
 
 .PHONY: build_and_push
 build_and_push: build_redis push_redis build_flask_for_redis push_flask_for_redis
@@ -39,4 +42,4 @@ run_redis:
 
 .PHONY: run_flask_for_redis
 run_flask_for_redis:
-	docker run --detach --publish=5000:5000 --name=flask_app barteks/flaskappforredis
+	docker run --detach --publish=8080:80 --name=flaskappforredis barteks/flaskappforredis
